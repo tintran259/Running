@@ -4,10 +4,20 @@ import { View, StatusBar, Image, TouchableOpacity, Text, Animated, ScrollView } 
 import { StylesHomeScreen } from '../Assets/Styles/HomeScreen'
 
 
-import { HomeSection } from '../Components/HomeScreen'
+//Component + Action
+import { HomeBoxStepHeader, HomeGetGift, HomePercentStep } from '../Components/HomeScreen'
 
 
 export default function HomeScreen() {
+
+   //CONTRUCTOR
+   const [step, setStep] = useState(2000);
+
+
+
+   const initialProps = {
+      step,
+   }
 
    return (
       <>
@@ -16,9 +26,14 @@ export default function HomeScreen() {
             <View style={StylesHomeScreen.bannerHeader}>
                <Image style={StylesHomeScreen.imgBanner} source={require("../Assets/Images/bg_run2.jpg")} />
             </View>
-            <HomeSection />
+            <View style={StylesHomeScreen.ViewRun}>
+               <HomeBoxStepHeader {...initialProps} />
+               <View style={StylesHomeScreen.ViewFooterRun}>
+                  <HomePercentStep {...initialProps} />
+                  <HomeGetGift />
+               </View>
+            </View>
             <View style={StylesHomeScreen.body}>
-
             </View>
          </ScrollView>
       </>

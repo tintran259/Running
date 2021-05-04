@@ -85,7 +85,7 @@ const StylesHomeScreen = StyleSheet.create({
       top: -20,
    },
    percentStepChild: {
-      width: '80%',
+      width: '20%',
       height: 10,
       borderRadius: 10,
       backgroundColor: "#0984e3",

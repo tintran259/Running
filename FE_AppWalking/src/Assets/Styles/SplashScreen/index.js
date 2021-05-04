@@ -1,0 +1,1 @@
+export { default as StylesSplashScreen } from './StyleSplashScreen'

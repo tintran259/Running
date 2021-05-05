@@ -11,8 +11,7 @@ import { HomeBoxStepHeader, HomeGetGift, HomePercentStep } from '../Components/H
 export default function HomeScreen() {
 
    //CONTRUCTOR
-   const [step, setStep] = useState(2000);
-
+   const [step, setStep] = useState(3900);
 
 
    const initialProps = {
@@ -30,7 +29,7 @@ export default function HomeScreen() {
                <HomeBoxStepHeader {...initialProps} />
                <View style={StylesHomeScreen.ViewFooterRun}>
                   <HomePercentStep {...initialProps} />
-                  <HomeGetGift />
+                  <HomeGetGift {...initialProps} />
                </View>
             </View>
             <View style={StylesHomeScreen.body}>

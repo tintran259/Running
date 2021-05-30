@@ -189,6 +189,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':@react-native-community_datetimepicker')
+    implementation project(':react-native-sensors')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     compile project(':react-native-vector-icons')
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {

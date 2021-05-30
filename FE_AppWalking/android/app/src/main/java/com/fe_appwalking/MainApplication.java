@@ -15,6 +15,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 import com.facebook.react.bridge.JSIModulePackage; // <- add
 import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
+import com.sensors.RNSensorsPackage;
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           new VectorIconsPackage();
           new RNDateTimePickerPackage();
+          new RNSensorsPackage();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;

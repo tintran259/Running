@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useSelector } from 'react-redux'
-
+import {useMutiSetting} from "../../hooks"
+// components
 import HomeScreen from '../../Screens/HomeScreen';
 import RankScreen from '../../Screens/RankScreen';
+import SettingScreen from "../../Screens/SettingScreen";
 import CustomDrawer from './CustomDrawer';
 const Drawer = createDrawerNavigator();
 
 
 export default function DrawerApp() {
-   const isToggle = useSelector(state => state.App.isToggle);
+   const {isToggle} = useMutiSetting();
    return (
       <Drawer.Navigator
          initialRouteName="Home"
@@ -19,6 +20,7 @@ export default function DrawerApp() {
       >
          <Drawer.Screen name="Home" component={HomeScreen} />
          <Drawer.Screen name="Rank" component={RankScreen} />
+         <Drawer.Screen name="Setting" component={SettingScreen} />
       </Drawer.Navigator>
    )
 }

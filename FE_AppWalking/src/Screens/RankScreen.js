@@ -1,12 +1,17 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import { HeaderScreen } from '../Components/HeaderScreen'
+import React from 'react';
+import {View, Text,ScrollView} from 'react-native';
+import {useMutiSetting} from "../hooks";
+// components
+import {RankTopSection,RankListItems} from "../Components/RankScreen";
+import {StyleRankScreen} from "../Assets/Styles/RankStyle";
 
 export default function RankScreen() {
-   return (
-      <View>
-         <Text>Rank</Text>
-         <HeaderScreen />
-      </View>
-   )
+  const {valueLang} = useMutiSetting();
+  return (
+    <ScrollView style={StyleRankScreen.container}>
+      <Text style={StyleRankScreen.title}>{valueLang.rank}</Text>
+      <RankTopSection/>
+      <RankListItems/>
+    </ScrollView>
+  );
 }

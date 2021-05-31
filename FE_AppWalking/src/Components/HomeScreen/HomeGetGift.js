@@ -1,6 +1,7 @@
-import React, {memo,useState} from 'react';
+import React, {memo, useState} from 'react';
 import {View, Image, TouchableOpacity, Text} from 'react-native';
 import Modal from 'react-native-modal';
+import {useMutiSetting} from '../../hooks';
 
 import {StylesHomeScreen} from '../../Assets/Styles/HomeScreen';
 
@@ -12,6 +13,7 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
   const [isGive2, setisGive2] = useState(false);
   const [isVisible1, setIsVisible1] = useState(false);
   const [isVisible2, setIsVisible2] = useState(false);
+  const {valueLang} = useMutiSetting();
   console.log('sumCoin:', sumCoin);
 
   // Close Modal
@@ -138,18 +140,18 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
             style={StylesHomeScreen.boxgift}
             source={require('../../Assets/Images/present.png')}
           />
-          <Text style={StylesHomeScreen.textModal}>Chúc mừng bạn đã được</Text>
+          <Text style={StylesHomeScreen.textModal}>{valueLang.mess}</Text>
           <Text
             style={[
               StylesHomeScreen.textModal,
               {marginTop: 0, color: 'yellow'},
             ]}>
-            200 Xu
+            200 {valueLang.coin}
           </Text>
           <TouchableOpacity
             style={StylesHomeScreen.btnGive}
             onPress={handleCloseModel}>
-            <Text style={StylesHomeScreen.colorTextBtn}>Nhận</Text>
+            <Text style={StylesHomeScreen.colorTextBtn}>{valueLang.give}</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -159,18 +161,18 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
             style={StylesHomeScreen.boxgift}
             source={require('../../Assets/Images/present.png')}
           />
-          <Text style={StylesHomeScreen.textModal}>Chúc mừng bạn đã được</Text>
+          <Text style={StylesHomeScreen.textModal}>{valueLang.mess}</Text>
           <Text
             style={[
               StylesHomeScreen.textModal,
               {marginTop: 0, color: 'yellow'},
             ]}>
-            500 Xu
+            500 {valueLang.coin}
           </Text>
           <TouchableOpacity
             style={StylesHomeScreen.btnGive}
             onPress={handleCloseModel1}>
-            <Text style={StylesHomeScreen.colorTextBtn}>Nhận</Text>
+            <Text style={StylesHomeScreen.colorTextBtn}>{valueLang.give}</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -180,18 +182,18 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
             style={StylesHomeScreen.boxgift}
             source={require('../../Assets/Images/present.png')}
           />
-          <Text style={StylesHomeScreen.textModal}>Chúc mừng bạn đã được</Text>
+          <Text style={StylesHomeScreen.textModal}>{valueLang.mess}</Text>
           <Text
             style={[
               StylesHomeScreen.textModal,
               {marginTop: 0, color: 'yellow'},
             ]}>
-            1000 Xu
+            1000 {valueLang.coin}
           </Text>
           <TouchableOpacity
             style={StylesHomeScreen.btnGive}
             onPress={handleCloseModel2}>
-            <Text style={StylesHomeScreen.colorTextBtn}>Nhận</Text>
+            <Text style={StylesHomeScreen.colorTextBtn}>{valueLang.give}</Text>
           </TouchableOpacity>
         </View>
       </Modal>

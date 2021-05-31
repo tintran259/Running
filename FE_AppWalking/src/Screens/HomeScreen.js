@@ -1,14 +1,12 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {View, Image, ScrollView} from 'react-native';
-import {StylesHomeScreen} from '../Assets/Styles/HomeScreen';
-
+import React, {useEffect, useState} from 'react';
+import {View, Image, ScrollView, Alert, BackHandler} from 'react-native';
 import {
   accelerometer,
-  gyroscope,
   setUpdateIntervalForType,
   SensorTypes,
 } from 'react-native-sensors';
 import {map, filter} from 'rxjs/operators';
+import {useMutiSetting} from '../hooks';
 //Component + Action
 import {
   HomeBoxStepHeader,
@@ -18,6 +16,8 @@ import {
   HomeButtonCoin,
   HomeRank,
 } from '../Components/HomeScreen';
+// orthers
+import {StylesHomeScreen} from '../Assets/Styles/HomeScreen';
 
 export default function HomeScreen() {
   //CONTRUCTOR
@@ -28,15 +28,20 @@ export default function HomeScreen() {
     z: 0,
   });
   const [sumCoin, setSumCoin] = useState(0);
+  const {valueLang} = useMutiSetting();
   useEffect(() => {
-    if (acce.x + acce.y + acce.z > 12) {
+    if (
+      acce.x + acce.y + acce.z > 12 &&
+      acce.z < 3 &&
+      acce.x > 0 &&
+      acce.y > 0
+    ) {
       setStep(step + 1);
     }
   }, [acce.x, acce.y, acce.z]);
-  console.log('acce', acce);
-  setUpdateIntervalForType(SensorTypes.accelerometer, 700); // defaults to 100ms
   useEffect(() => {
-    accelerometer
+    setUpdateIntervalForType(SensorTypes.accelerometer, 600); // defaults to 100ms
+    const subscription = accelerometer
       .pipe(
         map(({x, y, z}) => {
           setAcce({
@@ -48,8 +53,19 @@ export default function HomeScreen() {
         filter(speed => speed > 20),
       )
       .subscribe(speed => console.log(`You moved your phone with ${speed}`));
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
+  // out App
+  BackHandler.addEventListener('hardwareBackPress', () => {
+    Alert.alert(valueLang.quitApp, valueLang.message, [
+      {text: valueLang.yes, onPress: () => BackHandler.exitApp()},
+      {text: valueLang.no, onPress: () => {}},
+    ]);
+    return true;
+  });
   const initialProps = {
     step,
     sumCoin,

@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
-
 import { View, Text, TouchableOpacity, StatusBar, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-
-
-
-
-import { StylesLogin } from '../Assets/Styles/LoginRegisterScreen'
-
+// components
 import { FormLogin } from '../Components/LoginScreen'
-
+// orthers
+import { StylesLogin } from '../Assets/Styles/LoginRegisterScreen'
 
 export default function LoginScreen() {
    const navigation = useNavigation()
@@ -20,13 +15,11 @@ export default function LoginScreen() {
       password: ''
    })
 
-
    //Redirect
    const handleNextRegister = () => {
       setIsSubmit(false);
       navigation.navigate('RegisterScreen')
    }
-
 
    //Submit
    const handleSubmit = () => {
@@ -39,7 +32,6 @@ export default function LoginScreen() {
       setIsShowPassword(!isShowPassword)
    }
 
-
    //Validate
 
    const validateIsEmpty = () => {
@@ -48,12 +40,6 @@ export default function LoginScreen() {
       }
       return true;
    }
-
-
-
-
-
-
    const initialProps = {
       isSubmit,
       formLogin,

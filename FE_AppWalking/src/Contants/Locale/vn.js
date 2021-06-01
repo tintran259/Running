@@ -1,4 +1,5 @@
-const en = {
+const vn = {
+  value: 0,
   hello: 'Xin Chào',
   activity: 'Hoạt Động',
   rank: 'Xếp Hạng',
@@ -32,4 +33,4 @@ const en = {
   join: "Tham Gia",
   joined: "Đã Tham Gia"
 };
-export default en;
+export default vn;

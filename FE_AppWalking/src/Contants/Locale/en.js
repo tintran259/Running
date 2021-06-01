@@ -1,4 +1,5 @@
 const en = {
+  value: 1,
   hello : "Hello",
   activity : "Activity",
   rank: "Rank",

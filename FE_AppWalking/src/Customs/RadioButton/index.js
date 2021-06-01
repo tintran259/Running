@@ -1,21 +1,28 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // orthers
 import StyleRadio from './styleRadioButton';
 
 export default function RadioButton({
   items,
-  borderStyleSelected,
-  circelStyleSelected,
-  borderStyleColor,
-  circelStyleColor,
+  style,
   onChange,
   labelColor,
-  style,
+  circelStyleColor,
+  borderStyleColor,
+  borderStyleSelected,
+  circelStyleSelected,
 }) {
-  const [isSelected, setIsSelected] = useState(items && items[0].value);
-
+  const [isSelected, setIsSelected] = useState(0);
+  useEffect(() => {
+    AsyncStorage.getItem('locel').then(value => {
+      const valued = JSON.parse(value);
+      setIsSelected(valued.value);
+    });
+  }, []);
+  console.log('isSelected:', isSelected);
   const handleRadio = item => {
     setIsSelected(item.value);
     onChange && typeof onChange === 'function' && onChange(item);
@@ -24,7 +31,7 @@ export default function RadioButton({
   return items ? (
     items.map((item, index) => {
       return (
-        <View key={index} style={[StyleRadio.container,style] }>
+        <View key={index} style={[StyleRadio.container, style]}>
           <TouchableOpacity
             style={[StyleRadio.radio]}
             onPress={() => handleRadio(item)}>

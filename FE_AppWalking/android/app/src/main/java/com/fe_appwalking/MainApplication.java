@@ -16,6 +16,7 @@ import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 import com.facebook.react.bridge.JSIModulePackage; // <- add
 import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
 import com.sensors.RNSensorsPackage;
+import com.airbnb.android.react.lottie.LottiePackage;
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
           new VectorIconsPackage();
           new RNDateTimePickerPackage();
           new RNSensorsPackage();
+          new LottiePackage();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;

@@ -191,6 +191,7 @@ dependencies {
     implementation project(':@react-native-community_datetimepicker')
     implementation project(':react-native-sensors')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    implementation project(':lottie-react-native')
     compile project(':react-native-vector-icons')
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

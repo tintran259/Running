@@ -26,6 +26,10 @@ const en = {
   yes: "Đồng Ý",
   no: "Hủy",
   give: "Nhận",
-  mess: "Chúc mừng bạn nhận được"
+  mess: "Chúc mừng bạn nhận được",
+  dark : "Chế độ sáng / tối",
+  detail: "Chi Tiết",
+  join: "Tham Gia",
+  joined: "Đã Tham Gia"
 };
 export default en;

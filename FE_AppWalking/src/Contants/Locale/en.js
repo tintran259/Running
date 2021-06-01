@@ -26,6 +26,10 @@ const en = {
   yes: "Yes",
   no: "No",
   give: "Give",
-  mess: "Congratulations on getting"
+  mess: "Congratulations on getting",
+  dark : "Dark Mode",
+  detail: "Detail",
+  join: "Join",
+  joined: "Joined"
 }
 export default en;

@@ -2,8 +2,8 @@ import React, {memo, useState} from 'react';
 import {View, Image, TouchableOpacity, Text} from 'react-native';
 import Modal from 'react-native-modal';
 import {useMutiSetting} from '../../hooks';
-
-import {StylesHomeScreen} from '../../Assets/Styles/HomeScreen';
+// orthers
+import {StyleHomeGetGift} from '../../Assets/Styles/HomeScreen';
 
 const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
   console.log('step:', step);
@@ -45,32 +45,32 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
   };
   return (
     <>
-      <View style={StylesHomeScreen.getGift}>
+      <View style={StyleHomeGetGift.getGift}>
         {step >= 500 ? (
           !isGive ? (
             // Dat Moc 500
             <TouchableOpacity
-              style={StylesHomeScreen.btnGift1}
+              style={StyleHomeGetGift.btnGift1}
               onPress={handleOpenModal}>
               <Image
-                style={StylesHomeScreen.giftbox}
+                style={StyleHomeGetGift.giftbox}
                 source={require('../../Assets/Images/box.png')}
               />
             </TouchableOpacity>
           ) : (
             // Da Nhan Qua 500
-            <TouchableOpacity style={StylesHomeScreen.btnGift1}>
+            <TouchableOpacity style={StyleHomeGetGift.btnGift1}>
               <Image
-                style={StylesHomeScreen.giftboxGiven}
+                style={StyleHomeGetGift.giftboxGiven}
                 source={require('../../Assets/Images/gift.png')}
               />
             </TouchableOpacity>
           )
         ) : (
           // Chua Dat Moc 500
-          <TouchableOpacity disabled style={StylesHomeScreen.btnGift1}>
+          <TouchableOpacity disabled style={StyleHomeGetGift.btnGift1}>
             <Image
-              style={StylesHomeScreen.giftbox}
+              style={StyleHomeGetGift.giftbox}
               source={require('../../Assets/Images/giftbox1.png')}
             />
           </TouchableOpacity>
@@ -79,27 +79,27 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
           !isGive1 ? (
             // Dat Moc 2000
             <TouchableOpacity
-              style={StylesHomeScreen.btnGift2}
+              style={StyleHomeGetGift.btnGift2}
               onPress={handleOpenModal1}>
               <Image
-                style={StylesHomeScreen.giftbox}
+                style={StyleHomeGetGift.giftbox}
                 source={require('../../Assets/Images/box.png')}
               />
             </TouchableOpacity>
           ) : (
             // given Gift
-            <TouchableOpacity style={StylesHomeScreen.btnGift2}>
+            <TouchableOpacity style={StyleHomeGetGift.btnGift2}>
               <Image
-                style={StylesHomeScreen.giftboxGiven}
+                style={StyleHomeGetGift.giftboxGiven}
                 source={require('../../Assets/Images/gift.png')}
               />
             </TouchableOpacity>
           )
         ) : (
           // Chua Dat Moc 2000
-          <TouchableOpacity disabled style={StylesHomeScreen.btnGift2}>
+          <TouchableOpacity disabled style={StyleHomeGetGift.btnGift2}>
             <Image
-              style={StylesHomeScreen.giftbox}
+              style={StyleHomeGetGift.giftbox}
               source={require('../../Assets/Images/giftbox1.png')}
             />
           </TouchableOpacity>
@@ -108,92 +108,92 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
           !isGive2 ? (
             // Dat Moc 4000
             <TouchableOpacity
-              style={StylesHomeScreen.btnGift3}
+              style={StyleHomeGetGift.btnGift3}
               onPress={handleOpenModal2}>
               <Image
-                style={StylesHomeScreen.giftbox}
+                style={StyleHomeGetGift.giftbox}
                 source={require('../../Assets/Images/box.png')}
               />
             </TouchableOpacity>
           ) : (
             // given Gift
-            <TouchableOpacity style={StylesHomeScreen.btnGift3}>
+            <TouchableOpacity style={StyleHomeGetGift.btnGift3}>
               <Image
-                style={StylesHomeScreen.giftboxGiven}
+                style={StyleHomeGetGift.giftboxGiven}
                 source={require('../../Assets/Images/gift.png')}
               />
             </TouchableOpacity>
           )
         ) : (
           // Chua Dat Moc 4000
-          <TouchableOpacity disabled style={StylesHomeScreen.btnGift3}>
+          <TouchableOpacity disabled style={StyleHomeGetGift.btnGift3}>
             <Image
-              style={StylesHomeScreen.giftbox}
+              style={StyleHomeGetGift.giftbox}
               source={require('../../Assets/Images/giftbox1.png')}
             />
           </TouchableOpacity>
         )}
       </View>
       <Modal isVisible={isVisible}>
-        <View style={StylesHomeScreen.viewModal}>
+        <View style={StyleHomeGetGift.viewModal}>
           <Image
-            style={StylesHomeScreen.boxgift}
+            style={StyleHomeGetGift.boxgift}
             source={require('../../Assets/Images/present.png')}
           />
-          <Text style={StylesHomeScreen.textModal}>{valueLang.mess}</Text>
+          <Text style={StyleHomeGetGift.textModal}>{valueLang.mess}</Text>
           <Text
             style={[
-              StylesHomeScreen.textModal,
+              StyleHomeGetGift.textModal,
               {marginTop: 0, color: 'yellow'},
             ]}>
             200 {valueLang.coin}
           </Text>
           <TouchableOpacity
-            style={StylesHomeScreen.btnGive}
+            style={StyleHomeGetGift.btnGive}
             onPress={handleCloseModel}>
-            <Text style={StylesHomeScreen.colorTextBtn}>{valueLang.give}</Text>
+            <Text style={StyleHomeGetGift.colorTextBtn}>{valueLang.give}</Text>
           </TouchableOpacity>
         </View>
       </Modal>
       <Modal isVisible={isVisible1}>
-        <View style={StylesHomeScreen.viewModal}>
+        <View style={StyleHomeGetGift.viewModal}>
           <Image
-            style={StylesHomeScreen.boxgift}
+            style={StyleHomeGetGift.boxgift}
             source={require('../../Assets/Images/present.png')}
           />
-          <Text style={StylesHomeScreen.textModal}>{valueLang.mess}</Text>
+          <Text style={StyleHomeGetGift.textModal}>{valueLang.mess}</Text>
           <Text
             style={[
-              StylesHomeScreen.textModal,
+              StyleHomeGetGift.textModal,
               {marginTop: 0, color: 'yellow'},
             ]}>
             500 {valueLang.coin}
           </Text>
           <TouchableOpacity
-            style={StylesHomeScreen.btnGive}
+            style={StyleHomeGetGift.btnGive}
             onPress={handleCloseModel1}>
-            <Text style={StylesHomeScreen.colorTextBtn}>{valueLang.give}</Text>
+            <Text style={StyleHomeGetGift.colorTextBtn}>{valueLang.give}</Text>
           </TouchableOpacity>
         </View>
       </Modal>
       <Modal isVisible={isVisible2}>
-        <View style={StylesHomeScreen.viewModal}>
+        <View style={StyleHomeGetGift.viewModal}>
           <Image
-            style={StylesHomeScreen.boxgift}
+            style={StyleHomeGetGift.boxgift}
             source={require('../../Assets/Images/present.png')}
           />
-          <Text style={StylesHomeScreen.textModal}>{valueLang.mess}</Text>
+          <Text style={StyleHomeGetGift.textModal}>{valueLang.mess}</Text>
           <Text
             style={[
-              StylesHomeScreen.textModal,
+              StyleHomeGetGift.textModal,
               {marginTop: 0, color: 'yellow'},
             ]}>
             1000 {valueLang.coin}
           </Text>
           <TouchableOpacity
-            style={StylesHomeScreen.btnGive}
+            style={StyleHomeGetGift.btnGive}
             onPress={handleCloseModel2}>
-            <Text style={StylesHomeScreen.colorTextBtn}>{valueLang.give}</Text>
+            <Text style={StyleHomeGetGift.colorTextBtn}>{valueLang.give}</Text>
           </TouchableOpacity>
         </View>
       </Modal>

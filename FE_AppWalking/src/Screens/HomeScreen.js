@@ -9,12 +9,13 @@ import {map, filter} from 'rxjs/operators';
 import {useMutiSetting} from '../hooks';
 //Component + Action
 import {
-  HomeBoxStepHeader,
-  HomeGetGift,
-  HomePercentStep,
-  HomeButtonProfile,
-  HomeButtonCoin,
   HomeRank,
+  HomeEvent,
+  HomeGetGift,
+  HomeButtonCoin,
+  HomePercentStep,
+  HomeBoxStepHeader,
+  HomeButtonProfile,
 } from '../Components/HomeScreen';
 // orthers
 import {StylesHomeScreen} from '../Assets/Styles/HomeScreen';
@@ -91,6 +92,7 @@ export default function HomeScreen() {
       </View>
       <View style={StylesHomeScreen.body}>
         <HomeRank {...initialProps} />
+        <HomeEvent />
       </View>
     </ScrollView>
   );

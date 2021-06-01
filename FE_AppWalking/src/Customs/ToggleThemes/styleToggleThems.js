@@ -3,8 +3,6 @@ import {COLOR} from "../../Contants";
 
 const StyleToggleThemes = StyleSheet.create({
   ViewToggle: {
-    width: '100%',
-    height: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -17,10 +15,13 @@ const StyleToggleThemes = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
     backgroundColor: COLOR.Text_Dark,
+    display:"flex",
+    flexDirection:"row",
+    alignItems:"center"
   },
   circel_toggle: {
-    width: 18,
-    height: 18,
+    width: "40%",
+    height: "80%",
     borderRadius: 200,
     borderWidth: 1,
     borderColor: COLOR.Text,
@@ -32,13 +33,13 @@ const StyleToggleThemes = StyleSheet.create({
   position: "absolute",
   left: "5%",
   fontSize: 17,
-  color: "#fff"
+  color: "#fff",
 },
 iconSun: {
   color: "#fff",
   position: "absolute",
-  right: "10%",
-  fontSize: 17
+  right: "5%",
+  fontSize: 17,
 },
 });
 

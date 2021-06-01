@@ -39,6 +39,17 @@ const StyleSetting = StyleSheet.create({
     height:1,
     backgroundColor:"#bdc3c7"
   },
+  sectionDarkMode:{
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"space-between",
+    alignItems:"center",
+    marginTop: 30
+  },
+  titleDarkMode:{
+    fontSize: 15,
+    color:"#2d3436"
+  }
 });
 
 export default StyleSetting;

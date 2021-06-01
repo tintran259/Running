@@ -4,6 +4,9 @@ import {View, Text} from 'react-native';
 import {useMutiSetting} from '../hooks';
 import RadioButton from '../Customs/RadioButton';
 
+// components
+import {SettingDarkMode} from "../Components/SettingScreen"
+
 // orthers
 import {StyleSetting} from '../Assets/Styles/SettingScreen';
 
@@ -41,6 +44,7 @@ export default function SettingScreen() {
           labelColor="#000"
         />
       </View>
+      <SettingDarkMode/>
     </View>
   );
 }

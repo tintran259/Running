@@ -1,3 +1,10 @@
-export { default as StylesHomeScreenLight } from './StyleHomeScreenLight'
-export { default as StylesHomeScreenDark } from './StyleHomeScreenDark'
-export { default as StylesHomeScreen } from './StylesHome'
+export {default as StylesHomeScreen} from './StylesHome';
+export {default as StyleHomeRank} from "./StyleHomeRank";
+export {default as StyleHomeEvent} from './StyleHomeEvent';
+export {default as StyleHomeBoxStep} from './StyleHomeBoxStep';
+export {default as StyleHomeGetGift} from './StyleHomeGetGift';
+export {default as StyleHomeButtonCoin} from './StyleHomeButtonCoin';
+export {default as StylesHomeScreenDark} from './StyleHomeScreenDark';
+export {default as StyleHomePercentStep} from './StyleHomePercentStep';
+export {default as StylesHomeScreenLight} from './StyleHomeScreenLight';
+export {default as StyleHomeButtonProfile} from './StyleHomeButtonProfile';

@@ -1,14 +1,16 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text} from 'react-native';
 import {useMutiSetting} from '../../hooks';
-import StyleHomeRank from '../../Assets/Styles/HomeScreen/StyleHomeRank';
+
+// orthers
+import {StyleHomeRank} from '../../Assets/Styles/HomeScreen';
 
 export default function HomeRank({step}) {
   // Cha
+  const {valueLang} = useMutiSetting();
   const day = new Date();
   const DayNow = day.getDay();
   const perStep = (step * 100) / 4000;
-  const {valueLang} = useMutiSetting();
   return (
     <View style={StyleHomeRank.container}>
       <Text style={StyleHomeRank.title}>{valueLang.statistical}</Text>

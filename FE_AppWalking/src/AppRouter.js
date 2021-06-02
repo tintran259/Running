@@ -6,6 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import SplashScreen from './Screens/SplashScreen';
 import StackLoginRegister from './Routers/Stack/Login_Register';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import HomePage from './Screens/HomeScreen';
 import DrawerApp from './Routers/Drawer/DrawerApp';
@@ -26,6 +27,13 @@ export default function AppRouter() {
   const [isSplash, setisSplash] = useState(true);
   const isLoading = useSelector(state => state.App.isLoading);
   const isLogin = useSelector(state => state.App.isLogin);
+  const [accessToken, setAccessToken] = useState('');
+  console.log('accessToken:', accessToken, isLogin);
+  useEffect(() => {
+    AsyncStorage.getItem('ACCESS_TOKEN').then(value => {
+      setAccessToken(value);
+    });
+  }, []);
   useEffect(() => {
     setTimeout(() => {
       setisSplash(false);
@@ -37,7 +45,7 @@ export default function AppRouter() {
         <Stack.Navigator headerMode="none">
           {isSplash ? (
             <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          ) : isLogin ? (
+          ) : (isLogin && accessToken) || isLogin || accessToken ? (
             <Stack.Screen name="StackLoginRegister" component={DrawerApp} />
           ) : (
             <Stack.Screen

@@ -1,8 +1,12 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
 import {useMutiSetting} from '../../hooks';
+import {useSelector,useDispatch} from "react-redux"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// action and components
+import {actLogoutSuccess} from "../../Store/App/action"
 // orthers
 import {
   StylesDrawerDark,
@@ -10,8 +14,10 @@ import {
 } from '../../Assets/Styles/DrawerStyle';
 
 export default function CustomDrawer() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const {valueLang, isToggle} = useMutiSetting();
+  const isLogin = useSelector(state => state.App.isLogin);
   //Navigation
   const handleAvtivityScreen = () => {
     navigation.navigate('Home');
@@ -21,6 +27,17 @@ export default function CustomDrawer() {
   };
   const handleSettingScreen = () => {
     navigation.navigate('Setting');
+  };
+  useEffect(() => {
+    AsyncStorage.getItem('ACCESS_TOKEN').then(value => {
+      console.log(value);
+    });
+  }, []);
+
+  const handleLogout = () => {
+    console.log("isLogin:",isLogin);
+    AsyncStorage.removeItem('ACCESS_TOKEN');
+    dispatch(actLogoutSuccess())
   };
   return (
     <DrawerContentScrollView
@@ -142,6 +159,7 @@ export default function CustomDrawer() {
             isToggle ? StylesDrawerDark.footer2 : StylesDrawerLight.footer2
           }>
           <TouchableOpacity
+            onPress={handleLogout}
             style={
               isToggle ? StylesDrawerDark.Activity : StylesDrawerLight.Activity
             }>

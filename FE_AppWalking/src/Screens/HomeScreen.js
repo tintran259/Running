@@ -80,7 +80,7 @@ export default function HomeScreen() {
         <HomeButtonCoin {...initialProps} />
         <Image
           style={StylesHomeScreen.imgBanner}
-          source={require('../Assets/Images/bgbg4.jpg')}
+          source={require('../Assets/Images/bgb.png')}
         />
       </View>
       <View style={StylesHomeScreen.ViewRun}>

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // components
 import {FormLogin} from '../Components/LoginScreen';
 import {
@@ -40,6 +41,7 @@ export default function LoginScreen() {
     if (validateIsEmpty()) {
       dispatch(actShowLoading());
       setTimeout(() => {
+        AsyncStorage.setItem('ACCESS_TOKEN','dasdsadqw31231d5q4we121asd');
         dispatch(actHideLoading());
         dispatch(actLoginSuccess());
       }, 2000);

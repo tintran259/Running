@@ -2,7 +2,7 @@ import {NAME_ACTION} from '../../Contants';
 
 const initialState = {
   isLoading: false,
-  isLogin: false
+  isLogin: false,
 };
 
 const Reducer = (state = initialState, action) => {
@@ -13,15 +13,20 @@ const Reducer = (state = initialState, action) => {
         isLoading: true,
       };
     case NAME_ACTION.HIDE_LOADING:
-      return{
+      return {
         ...state,
-        isLoading: false
-      }
+        isLoading: false,
+      };
     case NAME_ACTION.LOGIN_SUCCESS:
-      return{
+      return {
         ...state,
-        isLogin: true
-      }
+        isLogin: true,
+      };
+    case NAME_ACTION.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isLogin: false,
+      };
     default:
       return state;
   }

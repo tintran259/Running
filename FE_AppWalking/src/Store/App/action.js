@@ -17,3 +17,9 @@ export const actLoginSuccess = () =>{
     type: NAME_ACTION.LOGIN_SUCCESS
   }
 }
+
+export const actLogoutSuccess = () =>{
+  return{
+    type: NAME_ACTION.LOGOUT_SUCCESS
+  }
+}

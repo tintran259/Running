@@ -5,17 +5,13 @@ import {
   TouchableOpacity,
   StatusBar,
   ScrollView,
+  ToastAndroid,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 // components
 import {FormLogin} from '../Components/LoginScreen';
-import {
-  actLoginSuccess,
-  actShowLoading,
-  actHideLoading,
-} from '../Store/App/action';
+import {asyncLogin} from '../Store/Auth/action';
 // orthers
 import {StylesLogin} from '../Assets/Styles/LoginRegisterScreen';
 
@@ -39,12 +35,26 @@ export default function LoginScreen() {
   const handleSubmit = () => {
     setIsSubmit(true);
     if (validateIsEmpty()) {
-      dispatch(actShowLoading());
-      setTimeout(() => {
-        AsyncStorage.setItem('ACCESS_TOKEN','dasdsadqw31231d5q4we121asd');
-        dispatch(actHideLoading());
-        dispatch(actLoginSuccess());
-      }, 2000);
+      const {username, password} = formLogin;
+      dispatch(asyncLogin({username, password})).then(({ok, inforUser}) => {
+        if (ok) {
+          ToastAndroid.showWithGravityAndOffset(
+            `Xin chào ${inforUser.firstname}`,
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+            25,
+            25,
+          );
+        } else {
+          ToastAndroid.showWithGravityAndOffset(
+            'Sai tài khoản hoặc mật khẩu',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+            15,
+            10,
+          );
+        }
+      });
     }
   };
   const handleShowPassword = () => {

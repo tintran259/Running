@@ -11,14 +11,12 @@ export const MultiSettingContextProvider = ({children}) => {
     AsyncStorage.getItem('locel').then(value => {
       if (value) {
         const valued = JSON.parse(value);
-        console.log("valued:",valued.value);
         setValueLang(valued);
       } else {
         setValueLang(dictionary.en);
       }
     });
   }, []);
-
   const handleChangeToVn = () => {
     const value = JSON.stringify(dictionary.vn);
     AsyncStorage.setItem('locel', value);
@@ -30,7 +28,7 @@ export const MultiSettingContextProvider = ({children}) => {
     AsyncStorage.setItem('locel', value);
   };
   const initialValue = {
-    isToggle: isToggle ? isToggle : false,
+    isToggle : isToggle,
     valueLang,
     setIsToggle,
     handleChangeToVn,

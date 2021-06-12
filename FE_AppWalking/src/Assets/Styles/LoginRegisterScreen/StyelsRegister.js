@@ -108,6 +108,11 @@ const StylesRegister = StyleSheet.create({
       color: COLOR.Text,
       position: "absolute",
       right: '3%'
+   },
+   viewModal:{
+      width: '70%',
+      height: 200,
+      backgroundColor:'red'
    }
 })
 

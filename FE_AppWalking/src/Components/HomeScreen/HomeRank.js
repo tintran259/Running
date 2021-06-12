@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, Text} from 'react-native';
 import {useMutiSetting} from '../../hooks';
 
 // orthers
 import {StyleHomeRank} from '../../Assets/Styles/HomeScreen';
 
-export default function HomeRank({step}) {
+const HomeRank = ({step}) => {
   // Cha
   const {valueLang} = useMutiSetting();
   const day = new Date();
@@ -124,4 +124,6 @@ export default function HomeRank({step}) {
       </View>
     </View>
   );
-}
+};
+
+export default memo(HomeRank);

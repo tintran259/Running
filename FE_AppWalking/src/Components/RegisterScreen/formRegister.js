@@ -17,6 +17,7 @@ import IconAntd from 'react-native-vector-icons/AntDesign';
 export default function FormRegister({
   gender,
   isSubmit,
+  emailExit,
   isShowDate,
   formRegister,
   onCheckEmail,
@@ -28,10 +29,6 @@ export default function FormRegister({
   checkErrorPassword,
   handleSubmitRegister,
 }) {
-  console.log('====================================');
-  console.log('formRegister.birthday:', formRegister.birthday);
-  console.log('====================================');
-  console.log('gender[0].value:', gender[0].value);
   return (
     <ScrollView style={StylesRegister.formRegister}>
       <View style={StylesRegister.item}>
@@ -48,8 +45,8 @@ export default function FormRegister({
           style={[
             StylesRegister.input,
             checkErrorEmail && {borderColor: COLOR.Border_error},
-            formRegister.email === '' &&
-              isSubmit && {borderColor: COLOR.Border_error},
+            (formRegister.email === '' && isSubmit) ||
+              (emailExit && {borderColor: COLOR.Border_error}),
           ]}
         />
         {checkErrorEmail && (

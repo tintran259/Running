@@ -1,12 +1,12 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
 import {useMutiSetting} from '../../hooks';
-import {useSelector,useDispatch} from "react-redux"
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {Storage} from '../../Helper';
 // action and components
-import {actLogoutSuccess} from "../../Store/App/action"
+import {actGetToken} from '../../Store/Auth/action';
 // orthers
 import {
   StylesDrawerDark,
@@ -17,7 +17,7 @@ export default function CustomDrawer() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {valueLang, isToggle} = useMutiSetting();
-  const isLogin = useSelector(state => state.App.isLogin);
+  const infor = useSelector(state => state.User.inforUser);
   //Navigation
   const handleAvtivityScreen = () => {
     navigation.navigate('Home');
@@ -28,16 +28,12 @@ export default function CustomDrawer() {
   const handleSettingScreen = () => {
     navigation.navigate('Setting');
   };
-  useEffect(() => {
-    AsyncStorage.getItem('ACCESS_TOKEN').then(value => {
-      console.log(value);
-    });
-  }, []);
-
   const handleLogout = () => {
-    console.log("isLogin:",isLogin);
-    AsyncStorage.removeItem('ACCESS_TOKEN');
-    dispatch(actLogoutSuccess())
+    Storage.removeToken();
+    dispatch(actGetToken(''));
+  };
+  const handleListEventScreen = () => {
+    navigation.navigate('Event');
   };
   return (
     <DrawerContentScrollView
@@ -68,7 +64,7 @@ export default function CustomDrawer() {
           style={
             isToggle ? StylesDrawerDark.txtName : StylesDrawerLight.txtName
           }>
-          TinLee
+          {infor.firstname}
         </Text>
       </View>
       <View style={isToggle ? StylesDrawerDark.body : StylesDrawerLight.body}>
@@ -122,6 +118,33 @@ export default function CustomDrawer() {
             {valueLang.rank}
           </Text>
         </TouchableOpacity>
+        {/* //==========================================Event====================================== */}
+        <TouchableOpacity
+          style={
+            isToggle ? StylesDrawerDark.Activity : StylesDrawerLight.Activity
+          }
+          onPress={handleListEventScreen}>
+          {isToggle ? (
+            <Image
+              style={StylesDrawerLight.iconBtn}
+              source={require('../../Assets/Images/calendar1.png')}
+            />
+          ) : (
+            <Image
+              style={StylesDrawerLight.iconBtn}
+              source={require('../../Assets/Images/calendar.png')}
+            />
+          )}
+          <Text
+            style={
+              isToggle
+                ? StylesDrawerDark.titleBtnAc
+                : StylesDrawerLight.titleBtnAc
+            }>
+            {valueLang.btnEvent}
+          </Text>
+        </TouchableOpacity>
+        {/* ============================================================================================ */}
       </View>
       <View style={StylesDrawerLight.footer}>
         <View

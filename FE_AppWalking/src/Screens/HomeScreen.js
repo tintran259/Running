@@ -1,12 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {View, Image, ScrollView, Alert, BackHandler} from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import {
+  Text,
+  View,
+  Image,
+  ScrollView,
+  Alert,
+  BackHandler,
+  Vibration,
+} from 'react-native';
 import {
   accelerometer,
   setUpdateIntervalForType,
   SensorTypes,
 } from 'react-native-sensors';
+import Modal from 'react-native-modal';
 import {map, filter} from 'rxjs/operators';
 import {useMutiSetting} from '../hooks';
+import {useDispatch, useSelector} from 'react-redux';
 //Component + Action
 import {
   HomeRank,
@@ -17,11 +27,18 @@ import {
   HomeBoxStepHeader,
   HomeButtonProfile,
 } from '../Components/HomeScreen';
+import {asyncAddActivity} from '../Store/Home/actions';
+import {asyncGetListEvent} from '../Store/Event/action';
 // orthers
 import {StylesHomeScreen} from '../Assets/Styles/HomeScreen';
+import {getDateByTimeZoneHour} from '../Untils/FormatDate';
 
 export default function HomeScreen() {
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.Auth.token);
   //CONTRUCTOR
+  const [timeStart, setTimeStart] = useState(getDateByTimeZoneHour(new Date()));
+  const [isShow, setisShow] = useState(false);
   const [step, setStep] = useState(0);
   const [acce, setAcce] = useState({
     x: 0,
@@ -30,6 +47,48 @@ export default function HomeScreen() {
   });
   const [sumCoin, setSumCoin] = useState(0);
   const {valueLang} = useMutiSetting();
+  const currentStep = useRef(null);
+  // Call Api
+  useEffect(() => {
+    dispatch(asyncGetListEvent({token}));
+  }, []);
+  // When user stopping more than 10s , and then will have a Modal notification for user Running.
+  useEffect(() => {
+    if (currentStep.current) {
+      clearTimeout(currentStep.current);
+    }
+    currentStep.current = setTimeout(() => {
+      setisShow(true);
+      Vibration.vibrate(5000);
+    }, 10000);
+    return () => {
+      clearInterval(
+        setTimeout(() => {
+          setisShow(true);
+          Vibration.vibrate(5000);
+        }, 5000),
+      );
+    };
+  }, [step]);
+  // When user begin run , and then will get time start when user running more than 1 step.
+  useEffect(() => {
+    if (step === 1) {
+      const time = new Date();
+      const mininus = `0${time.getMinutes()}`.slice(-2);
+      const hour = `0${time.getHours()}`.slice(-2);
+      const seconds = `0${time.getSeconds()}`.slice(-2);
+      const timeStartRun = hour + ':' + mininus + ':' + seconds;
+      const year = time.getFullYear();
+      const day = `0${time.getDate()}`.slice(-2);
+      const month = `0${time.getMonth() >= 12 ? 1 : time.getMonth() + 1}`.slice(
+        -2,
+      );
+      const calanderRun = year + '-' + month + '-' + day;
+      const startTimeRun = calanderRun + ' ' + timeStartRun;
+      setTimeStart(startTimeRun);
+    }
+  }, [step]);
+  // Sensor Device to Increament Step (step++);
   useEffect(() => {
     if (
       acce.x + acce.y + acce.z > 12 &&
@@ -58,15 +117,28 @@ export default function HomeScreen() {
       subscription.unsubscribe();
     };
   }, []);
+  // =============================================================
 
-  // out App
+  // When user want to Exit App, Sent request time end run of user.
   BackHandler.addEventListener('hardwareBackPress', () => {
     Alert.alert(valueLang.quitApp, valueLang.message, [
-      {text: valueLang.yes, onPress: () => BackHandler.exitApp()},
+      {
+        text: valueLang.yes,
+        onPress: () => {
+          const time = new Date();
+          const timeEnd = getDateByTimeZoneHour(time);
+          dispatch(asyncAddActivity({step, token, timeStart, timeEnd}));
+          // BackHandler.exitApp();
+        },
+      },
       {text: valueLang.no, onPress: () => {}},
     ]);
     return true;
   });
+
+  const handleHideModal = () => {
+    setisShow(false);
+  };
   const initialProps = {
     step,
     sumCoin,
@@ -74,26 +146,40 @@ export default function HomeScreen() {
   };
 
   return (
-    <ScrollView style={StylesHomeScreen.container}>
-      <View style={StylesHomeScreen.bannerHeader}>
-        <HomeButtonProfile />
-        <HomeButtonCoin {...initialProps} />
-        <Image
-          style={StylesHomeScreen.imgBanner}
-          source={require('../Assets/Images/bgb.png')}
-        />
-      </View>
-      <View style={StylesHomeScreen.ViewRun}>
-        <HomeBoxStepHeader {...initialProps} />
-        <View style={StylesHomeScreen.ViewFooterRun}>
-          <HomePercentStep {...initialProps} />
-          <HomeGetGift {...initialProps} />
+    <>
+      <ScrollView style={StylesHomeScreen.container}>
+        <View style={StylesHomeScreen.bannerHeader}>
+          <HomeButtonProfile />
+          <HomeButtonCoin {...initialProps} />
+          <Image
+            style={StylesHomeScreen.imgBanner}
+            source={require('../Assets/Images/bgb.png')}
+          />
         </View>
-      </View>
-      <View style={StylesHomeScreen.body}>
-        <HomeRank {...initialProps} />
-        <HomeEvent />
-      </View>
-    </ScrollView>
+        <View style={StylesHomeScreen.ViewRun}>
+          <HomeBoxStepHeader {...initialProps} />
+          <View style={StylesHomeScreen.ViewFooterRun}>
+            <HomePercentStep {...initialProps} />
+            <HomeGetGift {...initialProps} />
+          </View>
+        </View>
+        <View style={StylesHomeScreen.body}>
+          <HomeRank {...initialProps} />
+          <HomeEvent />
+        </View>
+      </ScrollView>
+      <Modal
+        onBackdropPress={handleHideModal}
+        style={StylesHomeScreen.modal}
+        isVisible={isShow}>
+        <View style={StylesHomeScreen.viewModal}>
+          <Image
+            style={StylesHomeScreen.icon}
+            source={require('../Assets/Images/runningman.png')}
+          />
+          <Text style={StylesHomeScreen.textLabel}>{valueLang.running}</Text>
+        </View>
+      </Modal>
+    </>
   );
 }

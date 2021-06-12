@@ -1,10 +1,10 @@
-import React from 'react';
-import {Text, TouchableOpacity, Image} from 'react-native';
+import React, {memo} from 'react';
+import {Text, TouchableOpacity, Image, Vibration} from 'react-native';
 import {useMutiSetting} from '../../hooks';
 import StylesHomeScreen from '../../Assets/Styles/HomeScreen/StyleHomeScreenDark';
-import {StyleHomeButtonCoin} from "../../Assets/Styles/HomeScreen"
+import {StyleHomeButtonCoin} from '../../Assets/Styles/HomeScreen';
 
-export default function HomeButtonCoin({sumCoin}) {
+const HomeButtonCoin = ({sumCoin}) => {
   const {valueLang} = useMutiSetting();
   return (
     <TouchableOpacity style={StyleHomeButtonCoin.viewBtnCoin}>
@@ -16,4 +16,6 @@ export default function HomeButtonCoin({sumCoin}) {
       />
     </TouchableOpacity>
   );
-}
+};
+
+export default memo(HomeButtonCoin);

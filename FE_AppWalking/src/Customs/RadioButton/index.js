@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// actions
+import {actShowLoading, actHideLoading} from '../../Store/App/action';
 
 // orthers
 import StyleRadio from './styleRadioButton';
@@ -15,17 +18,21 @@ export default function RadioButton({
   borderStyleSelected,
   circelStyleSelected,
 }) {
+  const dispatch = useDispatch();
   const [isSelected, setIsSelected] = useState(0);
   useEffect(() => {
     AsyncStorage.getItem('locel').then(value => {
       const valued = JSON.parse(value);
       setIsSelected(valued.value);
     });
-  }, []);
-  console.log('isSelected:', isSelected);
+  }, [isSelected]);
   const handleRadio = item => {
-    setIsSelected(item.value);
-    onChange && typeof onChange === 'function' && onChange(item);
+    dispatch(actShowLoading());
+    setTimeout(() => {
+      dispatch(actHideLoading());
+      setIsSelected(item.value);
+      onChange && typeof onChange === 'function' && onChange(item);
+    }, 1000);
   };
 
   return items ? (

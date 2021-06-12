@@ -33,6 +33,29 @@ const StylesHomeScreen = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  modal: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  viewModal: {
+    width: '80%',
+    height: 150,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    width: 50,
+    height: 50,
+    marginBottom: 20,
+  },
+  textLabel: {
+    fontSize: 18,
+  },
 });
 
 export default StylesHomeScreen;

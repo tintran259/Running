@@ -1,8 +1,9 @@
-import {NAME_ACTION} from '../../Contants';
+import { NAME_ACTION } from '../../Contants';
 
 const initialState = {
   listEvent: [],
   listEventJoined: [],
+  eventDetail: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         listEventJoined: action.payload.data,
       };
+    case NAME_ACTION.GET_EVENT_DETAIL:
+      return {
+        ...state,
+        eventDetail: action.payload.data,
+      }
     default:
       return state;
   }

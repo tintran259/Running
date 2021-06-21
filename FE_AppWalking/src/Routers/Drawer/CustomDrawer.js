@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Storage} from '../../Helper';
 // action and components
 import {actGetToken} from '../../Store/Auth/action';
+import {actHandleChart, actHandleRank} from '../../Store/App/action';
 // orthers
 import {
   StylesDrawerDark,
@@ -23,6 +24,7 @@ export default function CustomDrawer() {
     navigation.navigate('Home');
   };
   const handleRankScreen = () => {
+    dispatch(actHandleRank());
     navigation.navigate('Rank');
   };
   const handleSettingScreen = () => {
@@ -33,6 +35,7 @@ export default function CustomDrawer() {
     dispatch(actGetToken(''));
   };
   const handleListEventScreen = () => {
+    dispatch(actHandleChart());
     navigation.navigate('Event');
   };
   return (

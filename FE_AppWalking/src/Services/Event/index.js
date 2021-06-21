@@ -1,13 +1,16 @@
 import api from '../index';
 
 export const Event = {
-  ListEvent: ({token}) => {
+  ListEvent: ({ token }) => {
     return api.callAuth(token).post('event/all?page=1 &limit=10');
   },
-  EventWantJoined: ({token, event_id}) => {
+  EventWantJoined: ({ token, event_id }) => {
     return api.callAuth(token).post(`/event/join/${event_id}`);
   },
-  EventJoined: ({token}) => {
+  EventJoined: ({ token }) => {
     return api.callAuth(token).post(`/event/joined`);
   },
+  EventDetail: ({ event_id }) => {
+    return api.call().get(`/event/${event_id}`)
+  }
 };

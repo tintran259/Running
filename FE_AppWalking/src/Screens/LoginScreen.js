@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,15 +7,15 @@ import {
   ScrollView,
   ToastAndroid,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 // components
-import {FormLogin} from '../Components/LoginScreen';
-import {asyncLogin} from '../Store/Auth/action';
+import { FormLogin } from '../Components/LoginScreen';
+import { asyncLogin } from '../Store/Auth/action';
 // orthers
-import {StylesLogin} from '../Assets/Styles/LoginRegisterScreen';
+import { StylesLogin } from '../Assets/Styles/LoginRegisterScreen';
 
-export default function LoginScreen() {
+export default function LoginScreen({ route }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -24,6 +24,15 @@ export default function LoginScreen() {
     username: '',
     password: '',
   });
+  useEffect(() => {
+    if (route.params) {
+      setFormLogin({
+        username: route.params.username,
+        password: route.params.password
+      })
+    }
+  }, [route])
+  console.log("route:", route);
 
   //Redirect
   const handleNextRegister = () => {
@@ -35,8 +44,8 @@ export default function LoginScreen() {
   const handleSubmit = () => {
     setIsSubmit(true);
     if (validateIsEmpty()) {
-      const {username, password} = formLogin;
-      dispatch(asyncLogin({username, password})).then(({ok, inforUser}) => {
+      const { username, password } = formLogin;
+      dispatch(asyncLogin({ username, password })).then(({ ok, inforUser }) => {
         if (ok) {
           ToastAndroid.showWithGravityAndOffset(
             `Xin chào ${inforUser.firstname}`,
@@ -81,7 +90,7 @@ export default function LoginScreen() {
     <>
       <StatusBar backgroundColor="#000000" />
       <ScrollView
-        contentContainerStyle={{paddingBottom: 50}}
+        contentContainerStyle={{ paddingBottom: 50 }}
         style={StylesLogin.container}>
         <View style={StylesLogin.header}>
           <Text style={StylesLogin.title}>Let's sign you in.</Text>

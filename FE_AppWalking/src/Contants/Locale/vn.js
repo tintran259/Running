@@ -37,5 +37,6 @@ const vn = {
   running: 'Chạy đi chờ chi !',
   start: 'Bắt đầu:',
   end: 'Kết thúc:',
+  noEvent: 'Bạn chưa tham gia vào sự kiện!'
 };
 export default vn;

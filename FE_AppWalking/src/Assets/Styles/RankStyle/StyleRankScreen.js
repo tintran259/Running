@@ -55,7 +55,7 @@ const StyleRankScreen = StyleSheet.create({
     height: 50,
     marginBottom: 5,
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   top1: {
@@ -134,6 +134,7 @@ const StyleRankScreen = StyleSheet.create({
     borderBottomColor: '#ecf0f1',
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
   },
@@ -166,14 +167,14 @@ const StyleRankScreen = StyleSheet.create({
     fontWeight: 'bold',
   },
   derea: {
-    fontSize: 12, 
+    fontSize: 12,
   },
-  topNumber:{
+  topNumber: {
     fontSize: 24,
-    fontWeight:"bold",
+    fontWeight: 'bold',
     marginRight: 15,
-    color:"#e74c3c"
-  }
+    color: '#e74c3c',
+  },
 });
 
 export default StyleRankScreen;

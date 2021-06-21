@@ -3,6 +3,8 @@ import {NAME_ACTION} from '../../Contants';
 const initialState = {
   isLoading: false,
   isLogin: false,
+  isRank: '',
+  isChart: '',
 };
 
 const Reducer = (state = initialState, action) => {
@@ -26,6 +28,16 @@ const Reducer = (state = initialState, action) => {
       return {
         ...state,
         isLogin: false,
+      };
+    case NAME_ACTION.HANDLE_CHART:
+      return {
+        ...state,
+        isChart: Math.random(),
+      };
+    case NAME_ACTION.HANDLE_RANK:
+      return {
+        ...state,
+        isRank: Math.random(),
       };
     default:
       return state;

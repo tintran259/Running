@@ -37,5 +37,6 @@ const en = {
   running: 'Runnn........ !',
   start: 'Start:',
   end: 'End:',
+  noEvent: 'No event joined!'
 };
 export default en;

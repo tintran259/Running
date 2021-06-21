@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const StylesListEventJoined = StyleSheet.create({
   container: {
@@ -125,15 +125,12 @@ const StylesListEventJoined = StyleSheet.create({
   },
   viewModal: {
     width: '100%',
-    maxHeight: 500,
     backgroundColor: '#fff',
-    borderRadius: 8,
   },
   bannerModal: {
     width: '100%',
     height: 200,
     marginBottom: 10,
-    backgroundColor: 'red',
     borderTopRightRadius: 8,
     borderTopLeftRadius: 8,
   },
@@ -147,6 +144,25 @@ const StylesListEventJoined = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  viewEmpty: {
+    width: '100%',
+    height: 300,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  textEmpty: {
+    marginBottom: 20,
+    color: '#bdc3c7'
+  },
+  imgBanner: {
+    width: '100%',
+    height: '100%'
+  },
+  textDes: {
+    paddingBottom: 20,
+    paddingHorizontal: 15
+  }
 });
 
 export default StylesListEventJoined;

@@ -4,13 +4,16 @@ import {useMutiSetting} from '../../hooks';
 
 // orthers
 import {StyleHomeRank} from '../../Assets/Styles/HomeScreen';
+import {useSelector} from 'react-redux';
 
-const HomeRank = ({step}) => {
+const HomeRank = () => {
   // Cha
   const {valueLang} = useMutiSetting();
   const day = new Date();
   const DayNow = day.getDay();
-  const perStep = (step * 100) / 4000;
+  const statistical = useSelector(state => state.Rank.statistical);
+  console.log('statistical', statistical);
+
   return (
     <View style={StyleHomeRank.container}>
       <Text style={StyleHomeRank.title}>{valueLang.statistical}</Text>
@@ -35,37 +38,100 @@ const HomeRank = ({step}) => {
               <View
                 style={[
                   StyleHomeRank.ColStep1,
-                  DayNow === 1 ? {opacity: 1, height: `${perStep}%`} : '',
+                  DayNow === 1
+                    ? {
+                        opacity: 1,
+                        height: `${
+                          (statistical[0]?.total_steps * 100) / 4000 <= 100
+                            ? (statistical[0]?.total_steps * 100) / 4000
+                            : 100
+                        }%`,
+                      }
+                    : '',
                 ]}></View>
               <View
                 style={[
                   StyleHomeRank.ColStep2,
-                  DayNow === 2 ? {opacity: 1, height: `${perStep}%`} : '',
+                  DayNow === 2
+                    ? {
+                        opacity: 1,
+                        height: `${
+                          (statistical[1]?.total_steps * 100) / 4000 <= 100
+                            ? (statistical[1]?.total_steps * 100) / 4000
+                            : 100
+                        }%`,
+                      }
+                    : '',
                 ]}></View>
               <View
                 style={[
                   StyleHomeRank.ColStep3,
-                  DayNow === 3 ? {opacity: 1, height: `${perStep}%`} : '',
+                  DayNow === 3
+                    ? {
+                        opacity: 1,
+                        height: `${
+                          (statistical[2]?.total_steps * 100) / 4000 <= 100
+                            ? (statistical[2]?.total_steps * 100) / 4000
+                            : 100
+                        }%`,
+                      }
+                    : '',
                 ]}></View>
               <View
                 style={[
                   StyleHomeRank.ColStep4,
-                  DayNow === 4 ? {opacity: 1, height: `${perStep}%`} : '',
+                  DayNow === 4
+                    ? {
+                        opacity: 1,
+                        height: `${
+                          (statistical[3]?.total_steps * 100) / 4000 <= 100
+                            ? (statistical[3]?.total_steps * 100) / 4000
+                            : 100
+                        }%`,
+                      }
+                    : '',
                 ]}></View>
               <View
                 style={[
                   StyleHomeRank.ColStep5,
-                  DayNow === 5 ? {opacity: 1, height: `${perStep}%`} : '',
+                  DayNow === 5
+                    ? {
+                        opacity: 1,
+                        height: `${
+                          (statistical[4]?.total_steps * 100) / 4000 <= 100
+                            ? (statistical[4]?.total_steps * 100) / 4000
+                            : 100
+                        }%`,
+                      }
+                    : '',
                 ]}></View>
               <View
                 style={[
                   StyleHomeRank.ColStep6,
-                  DayNow === 6 ? {opacity: 1, height: `${perStep}%`} : '',
+                  DayNow === 6
+                    ? {
+                        opacity: 1,
+                        height: `${
+                          (statistical[5]?.total_steps * 100) / 4000 <= 100
+                            ? (statistical[5]?.total_steps * 100) / 4000
+                            : 100
+                        }%`,
+                      }
+                    : '',
                 ]}></View>
               <View
                 style={[
                   StyleHomeRank.ColStep7,
-                  DayNow === 0 ? {opacity: 1, height: `${perStep}%`} : '',
+                  DayNow === 0
+                    ? {
+                        opacity: 1,
+                        height: `${
+                          (statistical[6]?.total_steps * 100) / 4000 <= 100
+                            ? (statistical[6]?.total_steps * 100) / 4000
+                            : 100
+                        }%`,
+                      }
+                    : '',
                 ]}></View>
             </View>
             <View style={StyleHomeRank.viewTextDay}>

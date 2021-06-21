@@ -8,7 +8,7 @@ const StyleHomeRank = StyleSheet.create({
     padding: 10,
     paddingTop: 20,
     paddingBottom: 40,
-    borderBottomColor: "#ecf0f1"
+    borderBottomColor: '#ecf0f1',
   },
   title: {
     fontSize: 18,
@@ -65,6 +65,7 @@ const StyleHomeRank = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-end',
+    justifyContent: 'space-around',
     position: 'relative',
   },
   viewTextDay: {
@@ -87,7 +88,7 @@ const StyleHomeRank = StyleSheet.create({
     width: 20,
     backgroundColor: '#16a085',
     position: 'absolute',
-    left: '17%',
+    left: '18%',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     opacity: 0.5,

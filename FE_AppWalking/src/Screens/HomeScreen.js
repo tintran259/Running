@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Text,
   View,
@@ -14,9 +14,9 @@ import {
   SensorTypes,
 } from 'react-native-sensors';
 import Modal from 'react-native-modal';
-import {map, filter} from 'rxjs/operators';
-import {useMutiSetting} from '../hooks';
-import {useDispatch, useSelector} from 'react-redux';
+import { map, filter } from 'rxjs/operators';
+import { useMutiSetting } from '../hooks';
+import { useDispatch, useSelector } from 'react-redux';
 //Component + Action
 import {
   HomeRank,
@@ -27,11 +27,12 @@ import {
   HomeBoxStepHeader,
   HomeButtonProfile,
 } from '../Components/HomeScreen';
-import {asyncAddActivity} from '../Store/Home/actions';
-import {asyncGetListEvent} from '../Store/Event/action';
+import { asyncAddActivity } from '../Store/Home/actions';
+import { asyncGetListEvent } from '../Store/Event/action';
+import { asyncGetStatistical } from '../Store/Rank/action';
 // orthers
-import {StylesHomeScreen} from '../Assets/Styles/HomeScreen';
-import {getDateByTimeZoneHour} from '../Untils/FormatDate';
+import { StylesHomeScreen } from '../Assets/Styles/HomeScreen';
+import { getDateByTimeZoneHour } from '../Untils/FormatDate';
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
@@ -46,29 +47,27 @@ export default function HomeScreen() {
     z: 0,
   });
   const [sumCoin, setSumCoin] = useState(0);
-  const {valueLang} = useMutiSetting();
+  const { valueLang } = useMutiSetting();
   const currentStep = useRef(null);
   // Call Api
   useEffect(() => {
-    dispatch(asyncGetListEvent({token}));
+    dispatch(asyncGetListEvent({ token }));
+    dispatch(asyncGetStatistical({ token }));
   }, []);
   // When user stopping more than 10s , and then will have a Modal notification for user Running.
   useEffect(() => {
-    if (currentStep.current) {
-      clearTimeout(currentStep.current);
+    if (step > 1) {
+      if (currentStep.current) {
+        clearTimeout(currentStep.current);
+      }
+      currentStep.current = setTimeout(() => {
+        setisShow(true);
+        Vibration.vibrate(5000);
+      }, 30000);
+      return () => {
+        clearInterval(currentStep.current);
+      };
     }
-    currentStep.current = setTimeout(() => {
-      setisShow(true);
-      Vibration.vibrate(5000);
-    }, 10000);
-    return () => {
-      clearInterval(
-        setTimeout(() => {
-          setisShow(true);
-          Vibration.vibrate(5000);
-        }, 5000),
-      );
-    };
   }, [step]);
   // When user begin run , and then will get time start when user running more than 1 step.
   useEffect(() => {
@@ -103,7 +102,7 @@ export default function HomeScreen() {
     setUpdateIntervalForType(SensorTypes.accelerometer, 600); // defaults to 100ms
     const subscription = accelerometer
       .pipe(
-        map(({x, y, z}) => {
+        map(({ x, y, z }) => {
           setAcce({
             x: x,
             y: y,
@@ -127,11 +126,16 @@ export default function HomeScreen() {
         onPress: () => {
           const time = new Date();
           const timeEnd = getDateByTimeZoneHour(time);
-          dispatch(asyncAddActivity({step, token, timeStart, timeEnd}));
-          // BackHandler.exitApp();
+          dispatch(asyncAddActivity({ step, token, timeStart, timeEnd })).then(
+            ok => {
+              if (ok) {
+                BackHandler.exitApp();
+              }
+            },
+          );
         },
       },
-      {text: valueLang.no, onPress: () => {}},
+      { text: valueLang.no, onPress: () => { } },
     ]);
     return true;
   });

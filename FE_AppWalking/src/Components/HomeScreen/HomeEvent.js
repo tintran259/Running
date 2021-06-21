@@ -22,7 +22,7 @@ const HomeEvent = () => {
   return (
     <SafeAreaView style={StyleHomeEvent.container}>
       <Text style={StyleHomeEvent.title}>{valueLang.event}</Text>
-      {listEvent &&
+      {listEvent.length !== 0 &&
         listEvent.map(item => {
           return (
             <HomeEventItems

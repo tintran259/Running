@@ -1,18 +1,18 @@
 // libs
-import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, ToastAndroid} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, ToastAndroid } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 import Modal from 'react-native-modal';
 // components
-import {FormRegister} from '../Components/RegisterScreen';
+import { FormRegister } from '../Components/RegisterScreen';
 // action
-import {asyncRegister} from '../Store/Auth/action';
+import { asyncRegister } from '../Store/Auth/action';
 // orthers
-import {StylesRegister} from '../Assets/Styles/LoginRegisterScreen';
+import { StylesRegister } from '../Assets/Styles/LoginRegisterScreen';
 import IconAntd from 'react-native-vector-icons/AntDesign';
 // until
-import {getDateByTimeZoneMin} from '../Untils/FormatDate';
+import { getDateByTimeZoneMin } from '../Untils/FormatDate';
 
 export default function RegisterScreens() {
   const navigation = useNavigation();
@@ -25,8 +25,8 @@ export default function RegisterScreens() {
   const [checkErrorPassword, setCheckErrorPassword] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [gender] = useState([
-    {label: 'Male', value: 'Male'},
-    {label: 'Female', value: 'Female'},
+    { label: 'Male', value: 'Male' },
+    { label: 'Female', value: 'Female' },
   ]);
 
   const [formRegister, setFormRegister] = useState({
@@ -48,7 +48,7 @@ export default function RegisterScreens() {
     const time = t || formRegister.birthday;
     setIsShowDate(false);
     const formatDate = getDateByTimeZoneMin(time);
-    setFormRegister({...formRegister, birthday: formatDate});
+    setFormRegister({ ...formRegister, birthday: formatDate });
   };
 
   //Redirect
@@ -87,7 +87,10 @@ export default function RegisterScreens() {
         }),
       ).then(value => {
         if (value.ok) {
-          navigation.goBack();
+          navigation.navigate('LoginScreen', {
+            username: formRegister.email,
+            password: formRegister.password
+          });
           ToastAndroid.showWithGravityAndOffset(
             'Chúc mừng bạn đã đăng ký thành công',
             ToastAndroid.LONG,

@@ -1,13 +1,13 @@
 // libs
-import React, {useState} from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
-import {useMutiSetting} from '../../hooks';
-import {StyleHomeEvent} from '../../Assets/Styles/HomeScreen';
-import {getDateByTimeZoneHour} from '../../Untils/FormatDate';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { useMutiSetting } from '../../hooks';
+import { StyleHomeEvent } from '../../Assets/Styles/HomeScreen';
+import { getDateByTimeZoneHour } from '../../Untils/FormatDate';
 
-const HomeEventItems = ({isJoin, handleJoinEventItems, item}) => {
+const HomeEventItems = ({ isJoin, handleJoinEventItems, item }) => {
   const [isJoined, setIsJoined] = useState(false);
-  const {valueLang} = useMutiSetting();
+  const { valueLang } = useMutiSetting();
   const handleJoin = () => {
     handleJoinEventItems(item);
     setIsJoined(true);
@@ -16,10 +16,7 @@ const HomeEventItems = ({isJoin, handleJoinEventItems, item}) => {
     <View style={StyleHomeEvent.viewEventItems}>
       <Image
         style={StyleHomeEvent.imgBg}
-        source={{
-          uri:
-            'https://lh3.googleusercontent.com/proxy/mFKA_BJR9JnUWsCXstYfjIIRieVrmMcD1ye_5zqYu1HHPQuotObvyUPH8Xc3nW8beYxGRe2xcofgI2W-n-pQYx0NDxiGD1J9GckhJqxayVgOWDA5m5bjLJFFr9IxOsLTNujzFlEg0-VPnJAHqv0TtluY-YV62Lyfvvpl5pM-JrBUoA',
-        }}
+        source={require("../../Assets/Images/event.jpg")}
       />
       <Text numberOfLines={2} style={StyleHomeEvent.titleEvent}>
         {item.name}
@@ -55,7 +52,7 @@ const HomeEventItems = ({isJoin, handleJoinEventItems, item}) => {
         <TouchableOpacity
           style={[
             StyleHomeEvent.btnJoin,
-            isJoined && {backgroundColor: '#3498db'},
+            isJoined && { backgroundColor: '#3498db' },
           ]}
           onPress={handleJoin}>
           {isJoined ? (

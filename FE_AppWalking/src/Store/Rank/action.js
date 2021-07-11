@@ -1,6 +1,6 @@
-import {NAME_ACTION} from '../../Contants';
-import {RankScreens} from '../../Services/Rank';
-import {actHideLoading, actShowLoading} from '../App/action';
+import { NAME_ACTION } from '../../Contants';
+import { RankScreens } from '../../Services/Rank';
+import { actHideLoading, actShowLoading } from '../App/action';
 
 export const actGetListRank = data => {
   return {
@@ -25,10 +25,9 @@ export const asyncGetListRank = () => {
     try {
       dispatch(actShowLoading());
       const response = await RankScreens.Rank();
-      const {data} = response;
+      const { data } = response;
       dispatch(actHideLoading());
       if (data.status === 'success') {
-        console.log('data:', data);
         dispatch(actGetListRank(data.data));
       }
     } catch (error) {
@@ -38,15 +37,14 @@ export const asyncGetListRank = () => {
   };
 };
 
-export const asyncGetStatistical = ({token}) => {
+export const asyncGetStatistical = ({ token }) => {
   return async dispatch => {
     try {
       dispatch(actShowLoading());
-      const response = await RankScreens.Statistical({token});
-      const {data} = response;
+      const response = await RankScreens.Statistical({ token });
+      const { data } = response;
       dispatch(actHideLoading());
       if (data.status === 'success') {
-        console.log('data:', data);
         dispatch(actGetStatistical(data.data));
       }
     } catch (error) {

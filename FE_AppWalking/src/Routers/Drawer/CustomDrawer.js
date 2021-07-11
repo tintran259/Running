@@ -1,24 +1,33 @@
-import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
-import {DrawerContentScrollView} from '@react-navigation/drawer';
-import {useNavigation} from '@react-navigation/native';
-import {useMutiSetting} from '../../hooks';
-import {useDispatch, useSelector} from 'react-redux';
-import {Storage} from '../../Helper';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
+import { useMutiSetting } from '../../hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { Storage } from '../../Helper';
 // action and components
-import {actGetToken} from '../../Store/Auth/action';
-import {actHandleChart, actHandleRank} from '../../Store/App/action';
+import { actGetToken } from '../../Store/Auth/action';
+import { actHandleChart, actHandleRank } from '../../Store/App/action';
 // orthers
 import {
   StylesDrawerDark,
   StylesDrawerLight,
 } from '../../Assets/Styles/DrawerStyle';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CustomDrawer() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const {valueLang, isToggle} = useMutiSetting();
+  const { valueLang, isToggle } = useMutiSetting();
   const infor = useSelector(state => state.User.inforUser);
+  const [inforUser, setInforUser] = useState(infor)
+
+  useEffect(() => {
+    AsyncStorage.getItem('ACCESS_TOKEN').then((res) => {
+      const data = JSON.parse(res);
+      setInforUser(data.inforUser)
+    })
+  }, [])
   //Navigation
   const handleAvtivityScreen = () => {
     navigation.navigate('Home');
@@ -67,7 +76,7 @@ export default function CustomDrawer() {
           style={
             isToggle ? StylesDrawerDark.txtName : StylesDrawerLight.txtName
           }>
-          {infor.firstname}
+          {inforUser?.lastname}
         </Text>
       </View>
       <View style={isToggle ? StylesDrawerDark.body : StylesDrawerLight.body}>
@@ -161,12 +170,12 @@ export default function CustomDrawer() {
             }>
             {isToggle ? (
               <Image
-                style={{width: 25, height: 25, marginLeft: 30, marginRight: 25}}
+                style={{ width: 25, height: 25, marginLeft: 30, marginRight: 25 }}
                 source={require('../../Assets/Images/settingss1.png')}
               />
             ) : (
               <Image
-                style={{width: 25, height: 25, marginLeft: 30, marginRight: 25}}
+                style={{ width: 25, height: 25, marginLeft: 30, marginRight: 25 }}
                 source={require('../../Assets/Images/settingss.png')}
               />
             )}
@@ -191,12 +200,12 @@ export default function CustomDrawer() {
             }>
             {isToggle ? (
               <Image
-                style={{width: 25, height: 25, marginLeft: 30, marginRight: 25}}
+                style={{ width: 25, height: 25, marginLeft: 30, marginRight: 25 }}
                 source={require('../../Assets/Images/logout.png')}
               />
             ) : (
               <Image
-                style={{width: 25, height: 25, marginLeft: 30, marginRight: 25}}
+                style={{ width: 25, height: 25, marginLeft: 30, marginRight: 25 }}
                 source={require('../../Assets/Images/logout1.png')}
               />
             )}

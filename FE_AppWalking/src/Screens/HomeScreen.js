@@ -32,15 +32,19 @@ import { asyncGetListEvent } from '../Store/Event/action';
 import { asyncGetStatistical } from '../Store/Rank/action';
 // orthers
 import { StylesHomeScreen } from '../Assets/Styles/HomeScreen';
-import { getDateByTimeZoneHour } from '../Untils/FormatDate';
+import { getDateByTimeZoneHour, getDate } from '../Untils/FormatDate';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
   const token = useSelector(state => state.Auth.token);
+  const sumStep = useSelector(state => state.Rank.statistical);
   //CONTRUCTOR
+  const [tokenAsync, setToken] = useState(token)
   const [timeStart, setTimeStart] = useState(getDateByTimeZoneHour(new Date()));
   const [isShow, setisShow] = useState(false);
   const [step, setStep] = useState(0);
+  const [stepNow, setStepNow] = useState(0)
   const [acce, setAcce] = useState({
     x: 0,
     y: 0,
@@ -51,12 +55,32 @@ export default function HomeScreen() {
   const currentStep = useRef(null);
   // Call Api
   useEffect(() => {
-    dispatch(asyncGetListEvent({ token }));
-    dispatch(asyncGetStatistical({ token }));
+    AsyncStorage.getItem('ACCESS_TOKEN').then((response) => {
+      const data = JSON.parse(response)
+      const token = data.token
+      setToken(token)
+      dispatch(asyncGetListEvent({ token }));
+      dispatch(asyncGetStatistical({ token }));
+    })
   }, []);
+  useEffect(() => {
+    const time = new Date();
+    const year = time.getFullYear();
+    const day = `0${time.getDate()}`.slice(-2);
+    const month = `0${time.getMonth() >= 12 ? 1 : time.getMonth() + 1}`.slice(
+      -2,
+    );
+    const calanderRun = year + '-' + month + '-' + day;
+    const dateStep = sumStep.filter((e) => {
+      return e.date === calanderRun
+    })
+    setStep(dateStep[0]?.total_steps ? dateStep[0].total_steps : 0)
+    setStepNow(dateStep[0]?.total_steps ? dateStep[0].total_steps : 0)
+  }, [sumStep])
   // When user stopping more than 10s , and then will have a Modal notification for user Running.
   useEffect(() => {
-    if (step > 1) {
+
+    if (step !== currentStep.current) {
       if (currentStep.current) {
         clearTimeout(currentStep.current);
       }
@@ -71,22 +95,20 @@ export default function HomeScreen() {
   }, [step]);
   // When user begin run , and then will get time start when user running more than 1 step.
   useEffect(() => {
-    if (step === 1) {
-      const time = new Date();
-      const mininus = `0${time.getMinutes()}`.slice(-2);
-      const hour = `0${time.getHours()}`.slice(-2);
-      const seconds = `0${time.getSeconds()}`.slice(-2);
-      const timeStartRun = hour + ':' + mininus + ':' + seconds;
-      const year = time.getFullYear();
-      const day = `0${time.getDate()}`.slice(-2);
-      const month = `0${time.getMonth() >= 12 ? 1 : time.getMonth() + 1}`.slice(
-        -2,
-      );
-      const calanderRun = year + '-' + month + '-' + day;
-      const startTimeRun = calanderRun + ' ' + timeStartRun;
-      setTimeStart(startTimeRun);
-    }
-  }, [step]);
+    const time = new Date();
+    const mininus = `0${time.getMinutes()}`.slice(-2);
+    const hour = `0${time.getHours()}`.slice(-2);
+    const seconds = `0${time.getSeconds()}`.slice(-2);
+    const timeStartRun = hour + ':' + mininus + ':' + seconds;
+    const year = time.getFullYear();
+    const day = `0${time.getDate()}`.slice(-2);
+    const month = `0${time.getMonth() >= 12 ? 1 : time.getMonth() + 1}`.slice(
+      -2,
+    );
+    const calanderRun = year + '-' + month + '-' + day;
+    const startTimeRun = calanderRun + ' ' + timeStartRun;
+    setTimeStart(startTimeRun);
+  }, []);
   // Sensor Device to Increament Step (step++);
   useEffect(() => {
     if (
@@ -124,12 +146,15 @@ export default function HomeScreen() {
       {
         text: valueLang.yes,
         onPress: () => {
-          const time = new Date();
-          const timeEnd = getDateByTimeZoneHour(time);
-          dispatch(asyncAddActivity({ step, token, timeStart, timeEnd })).then(
+          const timeEnd = getDate();
+          const stepCount = step - stepNow
+          dispatch(asyncAddActivity({ stepCount, tokenAsync, timeStart, timeEnd })).then(
             ok => {
               if (ok) {
-                BackHandler.exitApp();
+                AsyncStorage.setItem('COINS', `${sumCoin}`).then(() => {
+                  // BackHandler.exitApp();
+                  console.log(ok);
+                })
               }
             },
           );

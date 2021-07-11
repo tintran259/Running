@@ -1,13 +1,19 @@
-import React, {memo} from 'react';
-import {Text, TouchableOpacity, Image, Vibration} from 'react-native';
-import {useMutiSetting} from '../../hooks';
-import StylesHomeScreen from '../../Assets/Styles/HomeScreen/StyleHomeScreenDark';
-import {StyleHomeButtonCoin} from '../../Assets/Styles/HomeScreen';
+// libs
+import React, { memo, useEffect, useState } from 'react';
+import { Text, TouchableOpacity, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// hooks
+import { useMutiSetting } from '../../hooks';
+// others
+import { StyleHomeButtonCoin } from '../../Assets/Styles/HomeScreen';
 
-const HomeButtonCoin = ({sumCoin}) => {
-  const {valueLang} = useMutiSetting();
+const HomeButtonCoin = () => {
+  const navigation = useNavigation();
+  const { valueLang, sumCoin } = useMutiSetting();
+  const [coin, setCoin] = useState(sumCoin);
   return (
-    <TouchableOpacity style={StyleHomeButtonCoin.viewBtnCoin}>
+    <TouchableOpacity style={StyleHomeButtonCoin.viewBtnCoin} onPress={() => navigation.navigate('Coins', { allCoins: coin })}>
       <Text style={StyleHomeButtonCoin.textCoin}>{sumCoin}</Text>
       <Text style={StyleHomeButtonCoin.textCoin}>{valueLang.coin}</Text>
       <Image

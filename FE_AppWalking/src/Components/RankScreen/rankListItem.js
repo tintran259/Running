@@ -1,15 +1,15 @@
 // libs
 import React from 'react';
-import {View, Text, Image} from 'react-native';
-import {useMutiSetting} from '../../hooks';
+import { View, Text, Image } from 'react-native';
+import { useMutiSetting } from '../../hooks';
 // orthers
-import {StyleRankScreen} from '../../Assets/Styles/RankStyle';
+import { StyleRankScreen } from '../../Assets/Styles/RankStyle';
 
-const RankListItems = ({item}) => {
-  const {valueLang} = useMutiSetting();
+const RankListItems = ({ item }) => {
+  const { valueLang } = useMutiSetting();
   return (
     <View style={StyleRankScreen.sectionItem}>
-      <Text style={StyleRankScreen.topNumber}>{`0${item.rank}`.slice(-2)}</Text>
+      <Text style={[StyleRankScreen.topNumber, item.rank === 1 ? { color: '#2ecc71' } : item.rank === 2 ? { color: '#3498db' } : item.rank === 3 ? { color: '#e74c3c' } : { color: '#95a5a6' }]}>{`0${item.rank}`.slice(-2)}</Text>
       <Text numberOfLines={1} style={StyleRankScreen.labelUser}>
         {item.lastname}
       </Text>

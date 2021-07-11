@@ -15,6 +15,7 @@ import { asyncLogin } from '../Store/Auth/action';
 // orthers
 import { StylesLogin } from '../Assets/Styles/LoginRegisterScreen';
 
+
 export default function LoginScreen({ route }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -32,7 +33,6 @@ export default function LoginScreen({ route }) {
       })
     }
   }, [route])
-  console.log("route:", route);
 
   //Redirect
   const handleNextRegister = () => {

@@ -1,12 +1,13 @@
-import React, {createContext, useEffect, useState} from 'react';
-import {dictionary} from '../Contants/Locale';
+import React, { createContext, useEffect, useState } from 'react';
+import { dictionary } from '../Contants/Locale';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const MultiSetting = createContext();
 
-export const MultiSettingContextProvider = ({children}) => {
+export const MultiSettingContextProvider = ({ children }) => {
   const [valueLang, setValueLang] = useState(dictionary.en);
   const [isToggle, setIsToggle] = useState(false);
+  const [sumCoin, setSumCoin] = useState(0);
   useEffect(() => {
     AsyncStorage.getItem('locel').then(value => {
       if (value) {
@@ -28,7 +29,9 @@ export const MultiSettingContextProvider = ({children}) => {
     AsyncStorage.setItem('locel', value);
   };
   const initialValue = {
-    isToggle : isToggle,
+    isToggle,
+    sumCoin,
+    setSumCoin,
     valueLang,
     setIsToggle,
     handleChangeToVn,

@@ -1,5 +1,5 @@
-import {NAME_ACTION} from '../../Contants';
-import {Storage} from '../../Helper';
+import { NAME_ACTION } from '../../Contants';
+import { Storage } from '../../Helper';
 
 const initialState = {
   token: Storage.getToken() || '',

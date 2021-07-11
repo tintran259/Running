@@ -1,20 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import SplashScreen from './Screens/SplashScreen';
 import StackLoginRegister from './Routers/Stack/Login_Register';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import HomePage from './Screens/HomeScreen';
 import DrawerApp from './Routers/Drawer/DrawerApp';
 import AnimatedLoader from 'react-native-animated-loader';
-import {Storage} from './Helper'
 
 // orthers
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 const Styles = StyleSheet.create({
@@ -26,6 +24,8 @@ const Styles = StyleSheet.create({
 
 export default function AppRouter() {
   const [isSplash, setisSplash] = useState(true);
+  const [Auth, setAuth] = useState(false);
+  const [token, setToken] = useState(false);
   const isLoading = useSelector(state => state.App.isLoading);
   const isLogin = useSelector(state => state.Auth.token);
   useEffect(() => {
@@ -33,14 +33,38 @@ export default function AppRouter() {
       setisSplash(false);
     }, 2000);
   }, []);
+  useEffect(() => {
+    AsyncStorage.getItem('ACCESS_TOKEN').then((res) => {
+      const data = JSON.parse(res)
+      if (data) {
+        setToken(data.token);
+        return;
+      }
+      setToken('')
+    })
+
+  }, [])
+  useEffect(() => {
+    if (isLogin === '' || typeof (isLogin) === 'object') {
+      setToken('')
+      setAuth(false)
+      return;
+    }
+    if (token !== '' || typeof (isLogin) !== 'object' && isLogin !== '') {
+      setAuth(true);
+      return;
+    }
+    setAuth(false);
+  }, [isLogin])
+
   return (
     <>
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
           {isSplash ? (
             <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          ) : isLogin ? (
-            <Stack.Screen name="StackLoginRegister" component={DrawerApp} />
+          ) : Auth || token ? (
+            <Stack.Screen name="DrawerApp" component={DrawerApp} />
           ) : (
             <Stack.Screen
               name="StackLoginRegister"

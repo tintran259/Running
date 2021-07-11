@@ -1,8 +1,8 @@
-import {NAME_ACTION} from '../../Contants';
-import {Authentization} from '../../Services/Auth';
-import {actShowLoading, actHideLoading} from '../../Store/App/action';
-import {actGetInfoUser} from '../../Store/User/action';
-import {Storage} from '../../Helper';
+import { NAME_ACTION } from '../../Contants';
+import { Authentization } from '../../Services/Auth';
+import { actShowLoading, actHideLoading } from '../../Store/App/action';
+import { actGetInfoUser } from '../../Store/User/action';
+import { Storage } from '../../Helper';
 
 export const actGetToken = token => {
   return {
@@ -38,7 +38,7 @@ export const asyncRegister = ({
       });
       dispatch(actHideLoading());
       console.log('response:', response.data.message);
-      const {data} = response;
+      const { data } = response;
       if (data.status === 'success') {
         return {
           ok: true,
@@ -55,24 +55,31 @@ export const asyncRegister = ({
     }
   };
 };
-export const asyncLogin = ({username, password}) => {
+export const asyncLogin = ({ username, password }) => {
   return async dispatch => {
     try {
       dispatch(actShowLoading());
-      const response = await Authentization.Login({username, password});
-      console.log('response:', response);
+      const response = await Authentization.Login({ username, password });
       dispatch(actHideLoading());
-      const {data} = response;
+      const { data } = response;
       if (data.data) {
+        console.log("data.data:", data.data);
         const token = data.data.accessToken;
         const inforUser = data.data.info;
         dispatch(actGetInfoUser(inforUser));
         dispatch(actGetToken(token));
-        Storage.setToken(token);
+        const dataFull = {
+          token: token,
+          inforUser: inforUser
+        }
+        console.log("dataFull:", dataFull.inforUser);
+        Storage.setToken(JSON.stringify(dataFull))
         return {
           ok: true,
           inforUser,
+          token
         };
+        ;
       } else {
         dispatch(actHideLoading());
         return {

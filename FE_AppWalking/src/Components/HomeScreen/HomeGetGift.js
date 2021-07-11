@@ -1,11 +1,11 @@
-import React, {memo, useState} from 'react';
-import {View, Image, TouchableOpacity, Text} from 'react-native';
+import React, { memo, useState } from 'react';
+import { View, Image, TouchableOpacity, Text } from 'react-native';
 import Modal from 'react-native-modal';
-import {useMutiSetting} from '../../hooks';
+import { useMutiSetting } from '../../hooks';
 // orthers
-import {StyleHomeGetGift} from '../../Assets/Styles/HomeScreen';
+import { StyleHomeGetGift } from '../../Assets/Styles/HomeScreen';
 
-const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
+const HomeGetGift = ({ step }) => {
   console.log('step:', step);
   const [isVisible, setIsVisible] = useState(false);
   const [isGive, setisGive] = useState(false);
@@ -13,7 +13,7 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
   const [isGive2, setisGive2] = useState(false);
   const [isVisible1, setIsVisible1] = useState(false);
   const [isVisible2, setIsVisible2] = useState(false);
-  const {valueLang} = useMutiSetting();
+  const { valueLang, sumCoin, setSumCoin } = useMutiSetting();
   console.log('sumCoin:', sumCoin);
 
   // Close Modal
@@ -144,7 +144,7 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
           <Text
             style={[
               StyleHomeGetGift.textModal,
-              {marginTop: 0, color: 'yellow'},
+              { marginTop: 0, color: 'yellow' },
             ]}>
             200 {valueLang.coin}
           </Text>
@@ -165,7 +165,7 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
           <Text
             style={[
               StyleHomeGetGift.textModal,
-              {marginTop: 0, color: 'yellow'},
+              { marginTop: 0, color: 'yellow' },
             ]}>
             500 {valueLang.coin}
           </Text>
@@ -186,7 +186,7 @@ const HomeGetGift = ({step, sumCoin, setSumCoin}) => {
           <Text
             style={[
               StyleHomeGetGift.textModal,
-              {marginTop: 0, color: 'yellow'},
+              { marginTop: 0, color: 'yellow' },
             ]}>
             1000 {valueLang.coin}
           </Text>

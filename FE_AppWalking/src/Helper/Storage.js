@@ -3,16 +3,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const keyToken = 'ACCESS_TOKEN';
 
 const storage = {
-  setToken(token) {
-    AsyncStorage.setItem(keyToken, token);
+  setToken: (token) => {
+    return AsyncStorage.setItem(keyToken, token);
   },
   getToken: () => {
-    AsyncStorage.getItem(keyToken).then(value => {
-      return value;
-    });
+    return AsyncStorage.getItem(keyToken)
   },
   removeToken: () => {
-    AsyncStorage.clear();
+    return AsyncStorage.removeItem(keyToken);
   },
 };
 

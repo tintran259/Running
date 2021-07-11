@@ -37,6 +37,7 @@ const en = {
   running: 'Runnn........ !',
   start: 'Start:',
   end: 'End:',
-  noEvent: 'No event joined!'
+  noEvent: 'No event joined!',
+  coins: 'Coin exchange'
 };
 export default en;
